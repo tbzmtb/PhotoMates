@@ -116,8 +116,9 @@ public class MainActivity extends AppCompatActivity {
                 // 권한 이상 없음
                 new ScanFileDataTask(MainActivity.this, mDataHandler).execute();
             }
+        }else {
+            new ScanFileDataTask(MainActivity.this, mDataHandler).execute();
         }
-//        new ScanFileDataTask(MainActivity.this, mDataHandler).execute();
     }
     @Override
     public void onRequestPermissionsResult(int requestCode,
