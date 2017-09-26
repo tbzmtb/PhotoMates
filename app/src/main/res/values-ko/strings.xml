@@ -4,5 +4,5 @@
     <string name="repaire">복구</string>
     <string name="please_seleted_photo">사진을 선택해 주세요.</string>
     <string name="please_re_seleted_photo">사진을 다시 선택해 주세요</string>
-    <string name="Success">복구 완료</string>
+    <string name="Success">복구 완료!! 갤러리를 확인해주세요.</string>
 </resources>

@@ -2,7 +2,11 @@ package sunyung.kr.photorestore;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 
@@ -53,11 +57,19 @@ public class PictureRepairTask extends AsyncTask<String, String, String> {
                     file.createNewFile();
                 }
                 copy(src, dst);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    Intent mediaScanIntent = new Intent(
+                            Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                    Uri contentUri = Uri.fromFile(dst);
+                    mediaScanIntent.setData(contentUri);
+                    mContext.sendBroadcast(mediaScanIntent);
+                }
                 new MediaScanning(mContext, dst);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
         return null;
     }
 
@@ -90,6 +102,7 @@ public class PictureRepairTask extends AsyncTask<String, String, String> {
             msg.obj = result;
             mHandler.sendMessage(msg);
         }
+        
         super.onPostExecute(result);
     }
 

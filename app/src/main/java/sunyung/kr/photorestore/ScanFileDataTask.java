@@ -2,8 +2,11 @@ package sunyung.kr.photorestore;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -80,6 +83,13 @@ public class ScanFileDataTask extends AsyncTask<String, Void, ArrayList<GridView
             msg.what = Config.FILE_SCAN_HANDLER;
             msg.obj = result;
             mHandler.sendMessage(msg);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                
+                mContext.sendBroadcast(new Intent(
+                        Intent.ACTION_MEDIA_MOUNTED,
+                        Uri.parse("file://"
+                                + Environment.getExternalStorageDirectory())));
+            }
         }
         super.onPostExecute(result);
     }

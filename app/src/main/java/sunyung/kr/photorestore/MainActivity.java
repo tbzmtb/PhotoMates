@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -227,14 +229,12 @@ public class MainActivity extends AppCompatActivity {
 
             if (pendingIntent != null) {
                 startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-//                mHelper.launchPurchaseFlow(this, getPackageName(), 1001, mPurchaseFinishedListener, "test");
 
-            } else {
-                // 결제가 막혔다면
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+//        repairingPictures(mAdpater.getSelectedItem());
     }
 
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
@@ -297,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.Success), Toast.LENGTH_LONG).show();
                 mAdpater.setAllDataDeSeleted();
                 mAdpater.notifyDataSetChanged();
+
             }
         }
     }
